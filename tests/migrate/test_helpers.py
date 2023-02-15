@@ -2,8 +2,8 @@ import unittest
 from itertools import zip_longest
 
 import fluent.syntax.ast as FTL
-from fluent.migrate.helpers import transforms_from, MESSAGE_REFERENCE
-from fluent.migrate.transforms import CONCAT, COPY
+from fluent.migrate.helpers import transforms_from, MESSAGE_REFERENCE, TERM_REFERENCE
+from fluent.migrate.transforms import CONCAT, COPY, REPLACE
 from fluent.migrate.errors import NotSupportedError, InvalidTransformError
 
 
@@ -302,7 +302,7 @@ new-key = { CONCAT("a", "b") }
         with self.assertRaisesRegex(NotSupportedError, pattern):
             transforms_from(
                 """
-new-key = { REPLACE() }
+new-key = { PLURALS() }
 """
             )
 
@@ -369,6 +369,23 @@ new-key = {" "}postfix.
                 )
             ],
         )
+
+    def test_replace_term(self):
+        replacements = dict({
+            "&old;": TERM_REFERENCE("new")
+        })
+        parsed = transforms_from("""
+new-key = { REPLACE(from_path, "key", replacements) }
+""", from_path="String with &old; term.", replacements=replacements)
+
+        self.assert_transforms_equal(parsed, [
+            FTL.Message(
+                id=FTL.Identifier("new-key"),
+                value=CONCAT(
+                    REPLACE("String with &old; term.", "key", replacements)
+                )
+            )
+        ])
 
 
 class TestMessageReference(unittest.TestCase):
