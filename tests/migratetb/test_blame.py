@@ -6,8 +6,8 @@ import shutil
 import tempfile
 import hglib
 
-from fluent.migrate.blame import Blame
-from fluent.migrate.repo_client import RepoClient, git
+from fluent.migratetb.blame import Blame
+from fluent.migratetb.repo_client import RepoClient, git
 
 
 class MockedBlame(Blame):

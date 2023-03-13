@@ -1,10 +1,10 @@
 import unittest
 
-from fluent.migrate.transforms import (
+from fluent.migratetb.transforms import (
     chain_elements,
     Transform,
 )
-from fluent.migrate.util import ftl_pattern_to_json
+from fluent.migratetb.util import ftl_pattern_to_json
 from fluent.syntax import ast as FTL
 
 

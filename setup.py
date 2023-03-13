@@ -3,13 +3,13 @@
 from setuptools import setup
 
 setup(
-    name="fluent.migrate",
-    version="0.13.1",
-    description="Toolchain to migrate legacy translation to Fluent.",
+    name="fluent.migratetb",
+    version="0.13.1.1",
+    description="Toolchain to migrate legacy translation to Fluent. (Thunderbird fork)",
     author="Mozilla",
-    author_email="l10n-drivers@mozilla.org",
+    author_email="rob@thunderbird.net",
     license="APL 2",
-    url="https://github.com/mozilla/fluent-migrate",
+    url="https://github.com/jfx2006/tb-fluent-migrate",
     keywords=["fluent", "localization", "l10n"],
     classifiers=[
         "Development Status :: 3 - Alpha",
@@ -22,7 +22,7 @@ setup(
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
     ],
-    packages=["fluent", "fluent.migrate"],
+    packages=["fluent", "fluent.migratetb"],
     install_requires=[
         "compare-locales >=9.0.1, <10.0",
         "fluent.syntax >=0.19.0, <0.20",
@@ -35,5 +35,5 @@ setup(
     tests_require=[
         "mock",
     ],
-    test_suite="tests.migrate",
+    test_suite="tests.migratetb",
 )

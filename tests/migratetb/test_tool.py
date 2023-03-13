@@ -4,8 +4,8 @@ from os.path import join, relpath
 import shutil
 import tempfile
 
-from fluent.migrate.repo_client import git
-from fluent.migrate.tool import Migrator
+from fluent.migratetb.repo_client import git
+from fluent.migratetb.tool import Migrator
 import hglib
 
 

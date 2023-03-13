@@ -1,4 +1,8 @@
-.*
 __pycache__
+*.tox
+*.pyc
+*.eggs
+fluent.migratetb.egg-info
+/build
 /dist
-/fluent.migrate.egg-info
+/.idea

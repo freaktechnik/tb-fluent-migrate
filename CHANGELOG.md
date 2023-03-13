@@ -1,5 +1,9 @@
 # Changelog
 
+## fluent.migrate 0.13.1.1 (Oct 1, 2024)
+
+  - Thunderbird fork.
+
 ## fluent.migrate 0.13.1 (Jun 4, 2024)
 
   - Use `git rev-parse` directly to check if the folder is within a git repository ([#10](https://github.com/mozilla/fluent-migrate/pull/10)). This is needed to support migrations in a git monorepo instead of individual hg repositories.

@@ -9,11 +9,11 @@ import logging
 import os
 import sys
 
-from fluent.migrate.blame import Blame
-from fluent.migrate.changesets import Changes, convert_blame_to_changesets
-from fluent.migrate.context import MigrationContext
-from fluent.migrate.errors import MigrationError
-from fluent.migrate.repo_client import RepoClient
+from fluent.migratetb.blame import Blame
+from fluent.migratetb.changesets import Changes, convert_blame_to_changesets
+from fluent.migratetb.context import MigrationContext
+from fluent.migratetb.errors import MigrationError
+from fluent.migratetb.repo_client import RepoClient
 
 
 @contextmanager

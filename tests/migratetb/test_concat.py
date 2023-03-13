@@ -1,8 +1,8 @@
 import unittest
 
 import fluent.syntax.ast as FTL
-from fluent.migrate.helpers import MESSAGE_REFERENCE
-from fluent.migrate.transforms import CONCAT, COPY
+from fluent.migratetb.helpers import MESSAGE_REFERENCE
+from fluent.migratetb.transforms import CONCAT, COPY
 
 
 class TestConcatSingleChild(unittest.TestCase):

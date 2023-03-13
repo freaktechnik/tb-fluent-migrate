@@ -1,6 +1,6 @@
 import unittest
 
-from fluent.migrate.transforms import COPY
+from fluent.migratetb.transforms import COPY
 
 
 class TestCopy(unittest.TestCase):

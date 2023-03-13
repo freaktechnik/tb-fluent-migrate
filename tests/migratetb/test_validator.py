@@ -3,8 +3,8 @@ import unittest
 
 from unittest import mock
 
-from fluent.migrate import validator
-from fluent.migrate import COPY, COPY_PATTERN
+from fluent.migratetb import validator
+from fluent.migratetb import COPY, COPY_PATTERN
 
 
 @mock.patch.multiple(
@@ -64,7 +64,7 @@ def migrate():
         self.assertEqual(details, inspect_migrate.return_value)
 
 
-@mock.patch("fluent.migrate.validator.MigrateAnalyzer", autospec=True)
+@mock.patch("fluent.migratetb.validator.MigrateAnalyzer", autospec=True)
 class TestValidator_inspect_migrate(unittest.TestCase):
     def test_bad_args(self, analyzer):
         v = validator.Validator("def migrate():\n pass", "bug_1.py")
@@ -132,7 +132,7 @@ class TestMigrateAnalyzer_Call(unittest.TestCase):
 
     def test_transform(self, call_ctx, call_helpers_transforms_from, call_transform):
         m = ast.parse("COPY()")
-        v = validator.MigrateAnalyzer("foo", {"COPY": "fluent.migrate.COPY"})
+        v = validator.MigrateAnalyzer("foo", {"COPY": "fluent.migratetb.COPY"})
         v.visit(m)
         self.assertListEqual(v.issues, [])
         call_ctx.assert_not_called()
@@ -141,7 +141,7 @@ class TestMigrateAnalyzer_Call(unittest.TestCase):
 
     def test_helpers(self, call_ctx, call_helpers_transforms_from, call_transform):
         m = ast.parse("helpers.transforms_from()")
-        v = validator.MigrateAnalyzer("foo", {"helpers": "fluent.migrate.helpers"})
+        v = validator.MigrateAnalyzer("foo", {"helpers": "fluent.migratetb.helpers"})
         v.visit(m)
         call_ctx.assert_not_called()
         call_transform.assert_not_called()
@@ -240,7 +240,7 @@ class TestMigrateAnalyzer_add_transforms(unittest.TestCase):
 
 class TestMigrateAnalyzer_call_transform(unittest.TestCase):
     def test_not_transform(self):
-        dotted = "fluent.migrate.helpers.VARIABLE_REFERENCE"
+        dotted = "fluent.migratetb.helpers.VARIABLE_REFERENCE"
         v = validator.MigrateAnalyzer(
             "foo",
             {
@@ -250,7 +250,7 @@ class TestMigrateAnalyzer_call_transform(unittest.TestCase):
         call = (
             ast.parse(
                 """\
-from fluent.migrate.helpers import VARIABLE_REFERENCE
+from fluent.migratetb.helpers import VARIABLE_REFERENCE
 VARIABLE_REFERENCE("foo")
 """
             )
@@ -262,7 +262,7 @@ VARIABLE_REFERENCE("foo")
         self.assertListEqual(v.issues, [])
 
     def test_not_source(self):
-        dotted = "fluent.migrate.transforms.CONCAT"
+        dotted = "fluent.migratetb.transforms.CONCAT"
         v = validator.MigrateAnalyzer(
             "foo",
             {
@@ -272,7 +272,7 @@ VARIABLE_REFERENCE("foo")
         call = (
             ast.parse(
                 """\
-from fluent.migrate.transforms import CONCAT
+from fluent.migratetb.transforms import CONCAT
 CONCAT("foo")
 """
             )
@@ -284,7 +284,7 @@ CONCAT("foo")
         self.assertListEqual(v.issues, [])
 
     def test_source(self):
-        dotted = "fluent.migrate.transforms.COPY"
+        dotted = "fluent.migratetb.transforms.COPY"
         v = validator.MigrateAnalyzer(
             "foo",
             {
@@ -295,7 +295,7 @@ CONCAT("foo")
         call = (
             ast.parse(
                 """\
-from fluent.migrate.transforms import COPY
+from fluent.migratetb.transforms import COPY
 COPY("foo")
 """
             )
@@ -309,7 +309,7 @@ COPY("foo")
         call = (
             ast.parse(
                 """\
-from fluent.migrate.transforms import COPY
+from fluent.migratetb.transforms import COPY
 COPY(some, bad, args)
 """
             )
@@ -323,7 +323,7 @@ COPY(some, bad, args)
         call = (
             ast.parse(
                 """\
-from fluent.migrate.transforms import COPY
+from fluent.migratetb.transforms import COPY
 COPY("my/fine.dtd", "foo")
 """
             )
@@ -336,7 +336,7 @@ COPY("my/fine.dtd", "foo")
         call = (
             ast.parse(
                 """\
-from fluent.migrate.transforms import COPY
+from fluent.migratetb.transforms import COPY
 src = "my/fine.dtd"
 COPY(src, "foo")
 """
@@ -352,7 +352,7 @@ COPY(src, "foo")
 class TestMigrateAnalyzer_call_helpers_transform_from(unittest.TestCase):
     def test_bad_arg(self):
         # we don't support names for literal recipes
-        dotted = "fluent.migrate.helpers.transforms_from"
+        dotted = "fluent.migratetb.helpers.transforms_from"
         v = validator.MigrateAnalyzer(
             "foo",
             {
@@ -363,7 +363,7 @@ class TestMigrateAnalyzer_call_helpers_transform_from(unittest.TestCase):
         call = (
             ast.parse(
                 """\
-from fluent.migrate.helpers import transforms_from
+from fluent.migratetb.helpers import transforms_from
 transforms_from(code)
 """
             )
@@ -375,7 +375,7 @@ transforms_from(code)
         self.assertEqual(len(v.issues), 1)
 
     def test_parse_error(self):
-        dotted = "fluent.migrate.helpers.transforms_from"
+        dotted = "fluent.migratetb.helpers.transforms_from"
         v = validator.MigrateAnalyzer(
             "foo",
             {
@@ -385,7 +385,7 @@ transforms_from(code)
         call = (
             ast.parse(
                 '''\
-from fluent.migrate.helpers import transforms_from
+from fluent.migratetb.helpers import transforms_from
 transforms_from("""
 k3 = {COPY(src, "other_key)}
 """, src='other.dtd')
@@ -400,7 +400,7 @@ k3 = {COPY(src, "other_key)}
         v.issues[:] = []
 
     def test_bad_src_var(self):
-        dotted = "fluent.migrate.helpers.transforms_from"
+        dotted = "fluent.migratetb.helpers.transforms_from"
         v = validator.MigrateAnalyzer(
             "foo",
             {
@@ -410,7 +410,7 @@ k3 = {COPY(src, "other_key)}
         call = (
             ast.parse(
                 '''\
-from fluent.migrate.helpers import transforms_from
+from fluent.migratetb.helpers import transforms_from
 transforms_from("""
 k3 = {COPY(one_src, "key")}
 """, one_src=one_src)
@@ -425,7 +425,7 @@ k3 = {COPY(one_src, "key")}
         v.issues[:] = []
 
     def test_success(self):
-        dotted = "fluent.migrate.helpers.transforms_from"
+        dotted = "fluent.migratetb.helpers.transforms_from"
         v = validator.MigrateAnalyzer(
             "foo",
             {
@@ -436,7 +436,7 @@ k3 = {COPY(one_src, "key")}
         call = (
             ast.parse(
                 '''\
-from fluent.migrate.helpers import transforms_from
+from fluent.migratetb.helpers import transforms_from
 one_src = "one.dtd"
 transforms_from("""
 k1 = bar

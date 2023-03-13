@@ -5,8 +5,8 @@ import shutil
 import tempfile
 import hglib
 
-from fluent.migrate.helpers import transforms_from
-from fluent.migrate import tool
+from fluent.migratetb.helpers import transforms_from
+from fluent.migratetb import tool
 
 
 class MockMigrationModule:
