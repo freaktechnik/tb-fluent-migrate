@@ -10,7 +10,7 @@ from fluent.migratetb import tool
 
 
 class MockMigrationModule:
-    __name__ = "tests.migratetb.some"
+    __name__ = "tests.migrate.some"
 
     @staticmethod
     def migrate(ctx):
@@ -44,7 +44,9 @@ target = should be migrated.
             f.write("one = first line\n")
         with open(os.path.join(self.root, "pl", "d1", "f1.dtd"), "w") as f:
             f.write('<!ENTITY one "first line">\n')
-        self.client = client = hglib.init(os.path.join(self.root), encoding="utf-8")
+        self.client = client = hglib.init(
+            os.path.join(self.root, "pl"), encoding="utf-8"
+        )
         client.open()
         client.commit(
             message="Initial commit",
@@ -71,7 +73,7 @@ target = should be migrated.
         tool.main(
             "pl",
             os.path.join(self.root, "ref"),
-            os.path.join(self.root),
+            os.path.join(self.root, "pl"),
             [MockMigrationModule()],
             False,
         )

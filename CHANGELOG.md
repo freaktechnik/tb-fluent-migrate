@@ -1,19 +1,18 @@
 # Changelog
 
-## fluent.migratetb 0.13.0.1 (March 2023)
+## fluent.migrate 0.13.1.1 (Oct 1, 2024)
 
-  - Thunderbird fork based off 0.13.0.
-  - No longer set "Rob" as author ancient migrated strings.
+  - Thunderbird fork.
+
+## fluent.migrate 0.13.1 (Jun 4, 2024)
+
+  - Use `git rev-parse` directly to check if the folder is within a git repository ([#10](https://github.com/mozilla/fluent-migrate/pull/10)). This is needed to support migrations in a git monorepo instead of individual hg repositories.
 
 ## fluent.migrate 0.13.0 (Feb 1, 2024)
 
   - Add RepoClient as wrapper that auto-detects and supports both git & hg ([#6](https://github.com/mozilla/fluent-migrate/pull/6))
   - Add some type hinting
   - Drop support for Python 3.7, add 3.11 and 3.12
-
-## fluent.migratetb 0.12.0.1 (May 2023)
-
-  - Thunderbird fork based off 0.12.0.
 
 ## fluent.migrate 0.12.0 (May 16, 2023)
 
@@ -24,10 +23,6 @@
   - Drop Windows support
   - Drop dependency on six
   - Update contact details, including new [repo URL](https://github.com/mozilla/fluent-migrate)
-
-## fluent.migratetb 0.11.2 (March 2023)
-
-  - Thunderbird fork.
 
 ## fluent.migrate 0.11 (March 12, 2021)
 

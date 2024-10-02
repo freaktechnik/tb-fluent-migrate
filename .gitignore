@@ -1,9 +1,8 @@
+__pycache__
 *.tox
 *.pyc
 *.eggs
-__pycache__
-/fluent.migratetb.egg-info
-build
-dist
-.idea
-.hg
+fluent.migratetb.egg-info
+/build
+/dist
+/.idea

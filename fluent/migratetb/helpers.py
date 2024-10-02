@@ -81,7 +81,7 @@ class IntoTranforms(Transformer):
             }
             if name == "COPY":
                 return COPY(*args, **kwargs)
-            elif name == "REPLACE":
+            elif name == 'REPLACE':
                 return REPLACE(*args, **kwargs)
             return COPY_PATTERN(*args, **kwargs)
         return self.generic_visit(node)

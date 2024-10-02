@@ -371,26 +371,21 @@ new-key = {" "}postfix.
         )
 
     def test_replace_term(self):
-        replacements = dict({"&old;": TERM_REFERENCE("new")})
-        parsed = transforms_from(
-            """
+        replacements = dict({
+            "&old;": TERM_REFERENCE("new")
+        })
+        parsed = transforms_from("""
 new-key = { REPLACE(from_path, "key", replacements) }
-""",
-            from_path="String with &old; term.",
-            replacements=replacements,
-        )
+""", from_path="String with &old; term.", replacements=replacements)
 
-        self.assert_transforms_equal(
-            parsed,
-            [
-                FTL.Message(
-                    id=FTL.Identifier("new-key"),
-                    value=CONCAT(
-                        REPLACE("String with &old; term.", "key", replacements)
-                    ),
+        self.assert_transforms_equal(parsed, [
+            FTL.Message(
+                id=FTL.Identifier("new-key"),
+                value=CONCAT(
+                    REPLACE("String with &old; term.", "key", replacements)
                 )
-            ],
-        )
+            )
+        ])
 
 
 class TestMessageReference(unittest.TestCase):

@@ -1,10 +1,8 @@
 import unittest
-from compare_locales.parser import PropertiesParser, DTDParser
 
 import fluent.syntax.ast as FTL
-from fluent.migratetb.util import parse, ftl_pattern_to_json
-from fluent.migratetb.helpers import VARIABLE_REFERENCE, MESSAGE_REFERENCE
-from fluent.migratetb.transforms import CONCAT, COPY, REPLACE
+from fluent.migratetb.helpers import MESSAGE_REFERENCE
+from fluent.migratetb.transforms import CONCAT, COPY
 
 
 class TestConcatSingleChild(unittest.TestCase):
