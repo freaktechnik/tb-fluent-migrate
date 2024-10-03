@@ -74,6 +74,10 @@ class Migrator:
         known_legacy_translations = set()
 
         for changeset in changesets:
+            author = changeset["author"]
+            if "rob@thunderbird.net" in author:
+                author = "Fluent migrations <>"
+
             snapshot = self.snapshot(
                 ctx, changeset["changes"], known_legacy_translations
             )
@@ -81,7 +85,7 @@ class Migrator:
                 continue
             self.serialize_changeset(snapshot)
             index += 1
-            self.commit_changeset(description_template, changeset["author"], index)
+            self.commit_changeset(description_template, author, index)
 
     def snapshot(
         self,
