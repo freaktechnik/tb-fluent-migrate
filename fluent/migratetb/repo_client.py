@@ -79,7 +79,7 @@ class RepoClient:
             self.hgclient.commit(message, user=author.encode("utf-8"), addremove=True)
         else:
             git(self.root, "add", ".")
-            git(self.root, "commit", f"--author={author}", f"--message={message}")
+            git(self.root, "commit", f"--author={author}", f"--message={message}", f"--no-gpg-sign")
 
     def head(self) -> str:
         "Identifier for the most recent commit"
